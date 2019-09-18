@@ -22,7 +22,7 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-var renderStatistics = function (ctx, names, times) {
+window.renderStatistics = function (ctx, names, times) {
   var maxTime = 0;
 
   var calcColumnHeight = function (time, max) {
@@ -70,3 +70,5 @@ var renderStatistics = function (ctx, names, times) {
     ctx.fillText(Math.round(times[j]), calcColumnX(j), calcColumnY(columnHeight) - COLUMN_MARGIN_TOP);
   }
 };
+
+renderStatistics();
