@@ -70,5 +70,3 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillText(Math.round(times[j]), calcColumnX(j), calcColumnY(columnHeight) - COLUMN_MARGIN_TOP);
   }
 };
-
-renderStatistics();
