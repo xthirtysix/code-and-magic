@@ -27,13 +27,13 @@ var renderStatistics = function (ctx, names, times) {
 
   var calcColumnHeight = function (time, max) {
     return (COLUMN_MAX_HEIGHT * time) / max;
-  }
+  };
   var calcColumnX = function (num) {
     return COLUMN_MIN_X + COLUMN_WIDTH * num + COLUMN_MARGIN_LEFT * num;
-  }
+  };
   var calcColumnY = function (height) {
     return COLUMN_MIN_Y + COLUMN_MAX_HEIGHT - height;
-  }
+  };
 
   /* Тень и холст статистики */
   renderCloud(ctx, CLOUD_X + SHADOW_OFFSET, CLOUD_Y + SHADOW_OFFSET, 'rgba(0, 0, 0, 0.7)');
@@ -53,20 +53,20 @@ var renderStatistics = function (ctx, names, times) {
   }
 
   /* Гистограмма */
-  for (var i = 0; i < names.length; i++) {
-    var columnHeight = calcColumnHeight(times[i], maxTime)
+  for (var j = 0; j < names.length; j++) {
+    var columnHeight = calcColumnHeight(times[j], maxTime);
 
-    if (names[i] === 'Вы') {
+    if (names[j] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = "hsl(240, " + Math.floor(60 * Math.random() + 40) + "%" + ",  50%)";
+      ctx.fillStyle = 'hsl(240, ' + Math.floor(60 * Math.random() + 40) + '%' + ',  50%)';
     }
     /* Отображаем колонку */
-    ctx.fillRect(calcColumnX(i), calcColumnY(columnHeight), COLUMN_WIDTH, columnHeight);
+    ctx.fillRect(calcColumnX(j), calcColumnY(columnHeight), COLUMN_WIDTH, columnHeight);
     /* Отображаем имя */
-    ctx.fillStyle = "black";
-    ctx.fillText(names[i], calcColumnX(i), NAME_Y);
+    ctx.fillStyle = 'black';
+    ctx.fillText(names[j], calcColumnX(j), NAME_Y);
     /* Отображаем время выполнения */
-    ctx.fillText(Math.round(times[i]), calcColumnX(i), calcColumnY(columnHeight) - COLUMN_MARGIN_TOP);
+    ctx.fillText(Math.round(times[j]), calcColumnX(j), calcColumnY(columnHeight) - COLUMN_MARGIN_TOP);
   }
-}
+};
