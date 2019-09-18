@@ -59,7 +59,7 @@ window.renderStatistics = function (ctx, names, times) {
     if (names[j] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = 'hsl(240, ' + Math.floor(60 * Math.random() + 40) + '%' + ',  50%)';
+      ctx.fillStyle = 'hsl(240, ' + Math.floor(86 * Math.random() + 15) + '%' + ',  50%)';
     }
     /* Отображаем колонку */
     ctx.fillRect(calcColumnX(j), calcColumnY(columnHeight), COLUMN_WIDTH, columnHeight);
