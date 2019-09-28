@@ -31,11 +31,21 @@ var COAT_COLORS = [
   'rgb(0, 0, 0)'
 ];
 
+var FIREBALL_COLORS = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
+
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var WIZARD_COUNT = 4;
 
-document.querySelector('.setup').classList.remove('hidden');
+var ESC_KEYCODE = 27;
+
+var ENTER_KEYCODE = 13;
 
 var wizardTemplate = document
   .querySelector('#similar-wizard-template')
@@ -93,3 +103,76 @@ var renderArmy = function () {
 renderArmy();
 
 document.querySelector('.setup-similar').classList.remove('hidden');
+
+// Нажатие на элемент .setup-open удаляет класс hidden
+// у блока setup
+
+var setup = document.querySelector('.setup');
+var setupUserName = setup.querySelector('.setup-user-name');
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+
+  setupUserName.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 27) {
+      document.removeEventListener('keydown', onPopupEscPress);
+    } else {
+      document.addEventListener('keydown', onPopupEscPress);
+    }
+  });
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+var setupOpen = document.querySelector('.setup-open');
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+var setupClose = setup.querySelector('.setup-close');
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+var setupWizard = document.querySelector('.setup-wizard');
+var wizardCoat = setupWizard.querySelector('.wizard-coat');
+
+wizardCoat.addEventListener('click', function () {
+  wizardCoat.style = 'fill: ' + getRandomArrayElement(COAT_COLORS);
+});
+
+var wizardEyes = setupWizard.querySelector('.wizard-eyes');
+
+wizardEyes.addEventListener('click', function () {
+  wizardEyes.style = 'fill: ' + getRandomArrayElement(EYE_COLORS);
+});
+
+var fireball = document.querySelector('.setup-fireball-wrap');
+
+fireball.addEventListener('click', function () {
+  fireball.style = 'background: ' + getRandomArrayElement(FIREBALL_COLORS);
+});
