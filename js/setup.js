@@ -104,14 +104,13 @@ renderArmy();
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
-// Нажатие на элемент .setup-open удаляет класс hidden
-// у блока setup
+// Показ/Скрытие окна настройки волшебника
 
 var setup = document.querySelector('.setup');
 var setupUserName = setup.querySelector('.setup-user-name');
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && setupUserName !== document.activeElement) {
     closePopup();
   }
 };
@@ -119,19 +118,6 @@ var onPopupEscPress = function (evt) {
 var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
-
-  setupUserName.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 27) {
-      document.removeEventListener('keydown', onPopupEscPress);
-    } else {
-      document.addEventListener('keydown', onPopupEscPress);
-    }
-  });
-};
-
-var closePopup = function () {
-  setup.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscPress);
 };
 
 var setupOpen = document.querySelector('.setup-open');
@@ -146,6 +132,11 @@ setupOpen.addEventListener('keydown', function (evt) {
   }
 });
 
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
 var setupClose = setup.querySelector('.setup-close');
 
 setupClose.addEventListener('click', function () {
@@ -157,6 +148,8 @@ setupClose.addEventListener('keydown', function (evt) {
     closePopup();
   }
 });
+
+// Кастомизация внешнего вида
 
 var setupWizard = document.querySelector('.setup-wizard');
 var wizardCoat = setupWizard.querySelector('.wizard-coat');
