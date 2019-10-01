@@ -105,7 +105,6 @@ renderArmy();
 document.querySelector('.setup-similar').classList.remove('hidden');
 
 // Показ/Скрытие окна настройки волшебника
-
 var setup = document.querySelector('.setup');
 var setupUserName = setup.querySelector('.setup-user-name');
 
@@ -115,9 +114,42 @@ var onPopupEscPress = function (evt) {
   }
 };
 
+// Кастомизация внешнего вида
+var wizardCoat = document.querySelector('.wizard-coat');
+var wizardEyes = document.querySelector('.wizard-eyes');
+var fireball = document.querySelector('.setup-fireball-wrap');
+
+var onWizardCoatClick = function () {
+  wizardCoat.style = 'fill: ' + getRandomArrayElement(COAT_COLORS);
+};
+
+var onWizardEyesClick = function () {
+  wizardEyes.style = 'fill: ' + getRandomArrayElement(EYE_COLORS);
+};
+
+var onFireballClick = function () {
+  fireball.style = 'background: ' + getRandomArrayElement(FIREBALL_COLORS);
+};
+
 var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
+
+  setupClose.addEventListener('click', function () {
+    closePopup();
+  });
+
+  setupClose.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      closePopup();
+    }
+  });
+
+  wizardCoat.addEventListener('click', onWizardCoatClick);
+
+  wizardEyes.addEventListener('click', onWizardEyesClick);
+
+  fireball.addEventListener('click', onFireballClick);
 };
 
 var setupOpen = document.querySelector('.setup-open');
@@ -132,40 +164,25 @@ setupOpen.addEventListener('keydown', function (evt) {
   }
 });
 
+var setupClose = setup.querySelector('.setup-close');
+
 var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
-};
 
-var setupClose = setup.querySelector('.setup-close');
-
-setupClose.addEventListener('click', function () {
-  closePopup();
-});
-
-setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  setupClose.removeEventListener('click', function () {
     closePopup();
-  }
-});
+  });
 
-// Кастомизация внешнего вида
+  setupClose.removeEventListener('keydown', function (evt) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      closePopup();
+    }
+  });
 
-var setupWizard = document.querySelector('.setup-wizard');
-var wizardCoat = setupWizard.querySelector('.wizard-coat');
+  wizardCoat.removeEventListener('click', onWizardCoatClick);
 
-wizardCoat.addEventListener('click', function () {
-  wizardCoat.style = 'fill: ' + getRandomArrayElement(COAT_COLORS);
-});
+  wizardEyes.removeEventListener('click', onWizardEyesClick);
 
-var wizardEyes = setupWizard.querySelector('.wizard-eyes');
-
-wizardEyes.addEventListener('click', function () {
-  wizardEyes.style = 'fill: ' + getRandomArrayElement(EYE_COLORS);
-});
-
-var fireball = document.querySelector('.setup-fireball-wrap');
-
-fireball.addEventListener('click', function () {
-  fireball.style = 'background: ' + getRandomArrayElement(FIREBALL_COLORS);
-});
+  fireball.removeEventListener('click', onFireballClick);
+};
