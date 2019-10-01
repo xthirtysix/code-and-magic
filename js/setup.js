@@ -116,19 +116,31 @@ var onPopupEscPress = function (evt) {
 
 // Кастомизация внешнего вида
 var wizardCoat = document.querySelector('.wizard-coat');
+var wizardCoatInput = document.querySelector('input[name=coat-color]');
 var wizardEyes = document.querySelector('.wizard-eyes');
+var wizardEyesInput = document.querySelector('input[name=eyes-color]');
 var fireball = document.querySelector('.setup-fireball-wrap');
+var fireballInput = document.querySelector('input[name=fireball-color]');
 
 var onWizardCoatClick = function () {
-  wizardCoat.style = 'fill: ' + getRandomArrayElement(COAT_COLORS);
+  var coatColor = getRandomArrayElement(COAT_COLORS);
+
+  wizardCoat.style = 'fill: ' + coatColor;
+  wizardCoatInput.value = coatColor;
 };
 
 var onWizardEyesClick = function () {
-  wizardEyes.style = 'fill: ' + getRandomArrayElement(EYE_COLORS);
+  var eyesColor = getRandomArrayElement(EYE_COLORS);
+
+  wizardEyes.style = 'fill: ' + eyesColor;
+  wizardEyesInput.value = eyesColor;
 };
 
 var onFireballClick = function () {
-  fireball.style = 'background: ' + getRandomArrayElement(FIREBALL_COLORS);
+  var fireballColor = getRandomArrayElement(FIREBALL_COLORS);
+
+  fireball.style = 'background: ' + fireballColor;
+  fireballInput.value = fireballColor;
 };
 
 var openPopup = function () {
