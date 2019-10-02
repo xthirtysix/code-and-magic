@@ -104,9 +104,20 @@ renderArmy();
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
-// Показ/Скрытие окна настройки волшебника
 var setup = document.querySelector('.setup');
 var setupUserName = setup.querySelector('.setup-user-name');
+
+// Обработчики открытия/закрытия окна настроек
+
+var onUserpicClick = function () {
+  openPopup();
+};
+
+var onUserpicEnterPress = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+};
 
 var onPopupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE && setupUserName !== document.activeElement) {
@@ -114,13 +125,29 @@ var onPopupEscPress = function (evt) {
   }
 };
 
-// Кастомизация внешнего вида
+var onCloseButtonEnterPress = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+};
+
+var onCloseButtonClick = function () {
+  closePopup();
+};
+
+// Интерактивные элементы кастомизации волшебника
+
 var wizardCoat = document.querySelector('.wizard-coat');
-var wizardCoatInput = document.querySelector('input[name=coat-color]');
-var wizardEyes = document.querySelector('.wizard-eyes');
-var wizardEyesInput = document.querySelector('input[name=eyes-color]');
 var fireball = document.querySelector('.setup-fireball-wrap');
+var wizardEyes = document.querySelector('.wizard-eyes');
+
+// Поля формы с данными о волшебнике
+
+var wizardCoatInput = document.querySelector('input[name=coat-color]');
+var wizardEyesInput = document.querySelector('input[name=eyes-color]');
 var fireballInput = document.querySelector('input[name=fireball-color]');
+
+// Обработчики кастомизации волшебника
 
 var onWizardCoatClick = function () {
   var coatColor = getRandomArrayElement(COAT_COLORS);
@@ -143,58 +170,39 @@ var onFireballClick = function () {
   fireballInput.value = fireballColor;
 };
 
-var openPopup = function () {
-  setup.classList.remove('hidden');
-  document.addEventListener('keydown', onPopupEscPress);
-
-  setupClose.addEventListener('click', function () {
-    closePopup();
-  });
-
-  setupClose.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
-      closePopup();
-    }
-  });
-
-  wizardCoat.addEventListener('click', onWizardCoatClick);
-
-  wizardEyes.addEventListener('click', onWizardEyesClick);
-
-  fireball.addEventListener('click', onFireballClick);
-};
+// Добавление/удаление обработчиков
 
 var setupOpen = document.querySelector('.setup-open');
 
-setupOpen.addEventListener('click', function () {
-  openPopup();
-});
-
-setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    openPopup();
-  }
-});
+setupOpen.addEventListener('click', onUserpicClick);
+setupOpen.addEventListener('keydown', onUserpicEnterPress);
 
 var setupClose = setup.querySelector('.setup-close');
 
+var openPopup = function () {
+  setup.classList.remove('hidden');
+
+  document.addEventListener('keydown', onPopupEscPress);
+  setupClose.addEventListener('click', closePopup);
+  setupClose.addEventListener('keydown', onCloseButtonEnterPress);
+  wizardCoat.addEventListener('click', onWizardCoatClick);
+  wizardEyes.addEventListener('click', onWizardEyesClick);
+  fireball.addEventListener('click', onFireballClick);
+
+  setupOpen.removeEventListener('click', onUserpicClick);
+  setupOpen.removeEventListener('keydown', onUserpicEnterPress);
+};
+
 var closePopup = function () {
   setup.classList.add('hidden');
+
   document.removeEventListener('keydown', onPopupEscPress);
-
-  setupClose.removeEventListener('click', function () {
-    closePopup();
-  });
-
-  setupClose.removeEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
-      closePopup();
-    }
-  });
-
+  setupClose.removeEventListener('click', onCloseButtonClick);
+  setupClose.removeEventListener('keydown', onCloseButtonEnterPress);
   wizardCoat.removeEventListener('click', onWizardCoatClick);
-
   wizardEyes.removeEventListener('click', onWizardEyesClick);
-
   fireball.removeEventListener('click', onFireballClick);
+
+  setupOpen.addEventListener('click', onUserpicClick);
+  setupOpen.addEventListener('keydown', onUserpicEnterPress);
 };
