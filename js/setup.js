@@ -39,21 +39,21 @@
 
   // Обработчики кастомизации волшебника
   var onWizardCoatClick = function () {
-    var coatColor = window.getRandomArrayElement(window.appearance.COAT_COLORS);
+    var coatColor = window.util.getRandomArrayElement(window.appearance.coatColors);
 
     wizardCoat.style = 'fill: ' + coatColor;
     wizardCoatInput.value = coatColor;
   };
 
   var onWizardEyesClick = function () {
-    var eyesColor = window.getRandomArrayElement(window.appearance.EYE_COLORS);
+    var eyesColor = window.util.getRandomArrayElement(window.appearance.eyeColors);
 
     wizardEyes.style = 'fill: ' + eyesColor;
     wizardEyesInput.value = eyesColor;
   };
 
   var onFireballClick = function () {
-    var fireballColor = window.getRandomArrayElement(window.appearance.FIREBALL_COLORS);
+    var fireballColor = window.util.getRandomArrayElement(window.appearance.fireballColors);
 
     fireball.style = 'background: ' + fireballColor;
     fireballInput.value = fireballColor;

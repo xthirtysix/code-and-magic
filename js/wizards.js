@@ -12,11 +12,11 @@
   var createRandomMage = function (firstNames, secondNames, coatColors, eyeColors) {
     return {
       name:
-        window.getRandomArrayElement(firstNames) +
+        window.util.getRandomArrayElement(firstNames) +
         ' ' +
-        window.getRandomArrayElement(secondNames),
-      coatColor: window.getRandomArrayElement(coatColors),
-      eyesColor: window.getRandomArrayElement(eyeColors)
+        window.util.getRandomArrayElement(secondNames),
+      coatColor: window.util.getRandomArrayElement(coatColors),
+      eyesColor: window.util.getRandomArrayElement(eyeColors)
     };
   };
 
@@ -24,7 +24,7 @@
     var army = [];
 
     for (var i = 0; i < strength; i++) {
-      army.push(createRandomMage(window.appearance.FIRST_NAMES, window.appearance.SECOND_NAMES, window.appearance.COAT_COLORS, window.appearance.EYE_COLORS));
+      army.push(createRandomMage(window.appearance.firstNames, window.appearance.secondNames, window.appearance.coatColors, window.appearance.eyeColors));
     }
 
     return army;
