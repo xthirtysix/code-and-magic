@@ -24,7 +24,7 @@
     var army = [];
 
     for (var i = 0; i < strength; i++) {
-      army.push(createRandomMage(window.appearance.firstNames, window.appearance.secondNames, window.appearance.coatColors, window.appearance.eyeColors));
+      army.push(createRandomMage(window.setup.firstNames, window.setup.secondNames, window.setup.coatColors, window.setup.eyeColors));
     }
 
     return army;
