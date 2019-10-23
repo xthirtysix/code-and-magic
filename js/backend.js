@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var load = function (onLoad, onError) {
     var URL = 'https://js.dump.academy/code-and-magick/data';
     var xhr = new XMLHttpRequest();

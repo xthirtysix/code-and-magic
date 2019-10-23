@@ -1,26 +1,6 @@
 'use strict';
 
 (function () {
-  var FIRST_NAMES = [
-    'Иван',
-    'Хуан Себастьян',
-    'Мария',
-    'Кристоф',
-    'Виктор',
-    'Юлия',
-    'Люпита',
-    'Вашингтон'
-  ];
-  var SECOND_NAMES = [
-    'да Марья',
-    'Верон',
-    'Мирабелла',
-    'Вальц',
-    'Онопко',
-    'Топольницкая',
-    'Нионго',
-    'Ирвинг'
-  ];
   var COAT_COLORS = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -38,15 +18,16 @@
   ];
   var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
+  var form = document.querySelector('.setup-wizard-form');
   // Интерактивные элементы кастомизации волшебника
-  var wizardCoat = document.querySelector('.wizard-coat');
-  var fireball = document.querySelector('.setup-fireball-wrap');
-  var wizardEyes = document.querySelector('.wizard-eyes');
+  var wizardCoat = form.querySelector('.wizard-coat');
+  var fireball = form.querySelector('.setup-fireball-wrap');
+  var wizardEyes = form.querySelector('.wizard-eyes');
 
   // Поля формы с данными о волшебнике
-  var wizardCoatInput = document.querySelector('input[name=coat-color]');
-  var wizardEyesInput = document.querySelector('input[name=eyes-color]');
-  var fireballInput = document.querySelector('input[name=fireball-color]');
+  var wizardCoatInput = form.querySelector('input[name=coat-color]');
+  var wizardEyesInput = form.querySelector('input[name=eyes-color]');
+  var fireballInput = form.querySelector('input[name=fireball-color]');
 
   // Обработчики кастомизации волшебника
   var onWizardCoatClick = function () {
@@ -70,21 +51,26 @@
     fireballInput.value = fireballColor;
   };
 
+  var onSubmitClick = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), window.closePopup, window.onErrorMessage);
+  };
+
   var addWizardSetupHandlers = function () {
     wizardCoat.addEventListener('click', onWizardCoatClick);
     wizardEyes.addEventListener('click', onWizardEyesClick);
     fireball.addEventListener('click', onFireballClick);
+    form.addEventListener('submit', onSubmitClick);
   };
 
   var removeWizardSetupHandlers = function () {
     wizardCoat.removeEventListener('click', onWizardCoatClick);
     wizardEyes.removeEventListener('click', onWizardEyesClick);
     fireball.removeEventListener('click', onFireballClick);
+    form.removeEventListener('submit', onSubmitClick);
   };
 
   window.setup = {
-    firstNames: FIRST_NAMES,
-    secondNames: SECOND_NAMES,
     coatColors: COAT_COLORS,
     fireballColors: FIREBALL_COLORS,
     eyeColors: EYE_COLORS,
