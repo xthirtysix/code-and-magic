@@ -3,13 +3,14 @@
 (function () {
   var GET_URL = 'https://js.dump.academy/code-and-magick/data';
   var POST_URL = 'https://js.dump.academy/code-and-magick';
+  var RESPONSE_CODE = 200;
 
   var load = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === RESPONSE_CODE) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText);
