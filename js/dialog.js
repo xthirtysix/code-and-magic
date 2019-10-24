@@ -111,4 +111,6 @@
     setupOpen.addEventListener('keydown', onUserpicEnterPress);
     window.setup.removeHandlers();
   };
+
+  window.closePopup = closePopup;
 })();
